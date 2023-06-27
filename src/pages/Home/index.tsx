@@ -1,46 +1,64 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Card } from "../../components/ui/Card";
-import { Avatar, CardProfileContainer, CardProfileContent, CardProfileIconContainer, HomeContainer } from "./styles";
+import { Card } from "@/components/ui/Card";
+import {
+  Avatar,
+  CardProfileContainer,
+  CardProfileContent,
+  CardProfileIconContainer,
+  HomeContainer,
+} from "./styles";
 
-import { faUserGroup, faBuilding } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserGroup,
+  faBuilding,
+  faUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
+import { Posts } from "./components/Posts";
+
+import { useContext } from "react";
+
+import { UserContext } from "@/contexts/UserContext";
+
 export function Home() {
-	return (
-		<HomeContainer>
-			<Card>
-				<CardProfileContainer>
-					<Avatar
-						src="https://images.unsplash.com/photo-1581803118522-7b72a50f7e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-						alt=""
-					/>
+  const { user } = useContext(UserContext);
 
-					<CardProfileContent>
-						<header>
-							<h1>Cameron Williamson</h1>
-							<span>github</span>
-						</header>
-						<p>
-							Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa quam dignissim aenean
-							malesuada suscipit. Nunc, volutpat pulvinar vel mass.
-						</p>
-						<footer>
-							<CardProfileIconContainer>
-								<FontAwesomeIcon icon={faGithub} /> <span>cameronwll</span>
-							</CardProfileIconContainer>
+  return (
+    <HomeContainer>
+      <Card>
+        <CardProfileContainer>
+          <Avatar src={user?.avatar_url} alt="" />
 
-							<CardProfileIconContainer>
-								<FontAwesomeIcon icon={faBuilding} /> <span>Rocketseat</span>
-							</CardProfileIconContainer>
+          <CardProfileContent>
+            <header>
+              <h1>{user?.name}</h1>
+              <a href={user?.html_url} target="_blank">
+                Github <FontAwesomeIcon icon={faUpRightFromSquare} />
+              </a>
+            </header>
+            <p>{user?.bio}</p>
+            <footer>
+              <CardProfileIconContainer>
+                <FontAwesomeIcon icon={faGithub} />{" "}
+                <a href={user?.html_url}>{user?.login}</a>
+              </CardProfileIconContainer>
 
-							<CardProfileIconContainer>
-								<FontAwesomeIcon icon={faUserGroup} />
-								<span>32 seguidores</span>
-							</CardProfileIconContainer>
-						</footer>
-					</CardProfileContent>
-				</CardProfileContainer>
-			</Card>
-		</HomeContainer>
-	);
+              <CardProfileIconContainer>
+                <FontAwesomeIcon icon={faBuilding} />{" "}
+                <span>Rocketseat | PUCRS</span>
+              </CardProfileIconContainer>
+
+              <CardProfileIconContainer>
+                <FontAwesomeIcon icon={faUserGroup} />
+                <span>{user?.followers} seguidores</span>
+              </CardProfileIconContainer>
+            </footer>
+          </CardProfileContent>
+        </CardProfileContainer>
+      </Card>
+
+      <Posts />
+    </HomeContainer>
+  );
 }

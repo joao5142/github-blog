@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+
 import { ColorsTypes } from "./themes/defaultTheme";
 
 export const GlobalStyles = createGlobalStyle`
@@ -15,6 +16,7 @@ export const GlobalStyles = createGlobalStyle`
 
       color:${(props) => props.theme.colors["base-text"]}
    }
+
    body,textarea,input,select{
         font-family: 'Nunito',sans-serif;
         font-size: 1rem;
@@ -22,10 +24,11 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 interface CardContainerProps {
-	background: ColorsTypes;
+  background: ColorsTypes;
 }
-export const Card = styled.div<CardContainerProps>`
-	padding: 2rem;
 
-	background: ${(props) => props.theme.colors[props.background]};
+export const Card = styled.div<CardContainerProps>`
+  padding: 2rem;
+
+  background: ${(props) => props.theme.colors[props.background]};
 `;
